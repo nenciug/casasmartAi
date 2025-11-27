@@ -7,6 +7,7 @@
 <link rel="icon" href="nenciug.webp" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+<!-- Schema JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -22,7 +23,7 @@
 </script>
 
 <style>
-body { font-family: Arial,sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+body { font-family: 'Arial', sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
 header { text-align:center; position:relative; }
 header .logo-container { width:100%; height:300px; overflow:hidden; }
 header .logo-container img { width:100%; height:100%; object-fit:cover; }
@@ -41,12 +42,11 @@ section p { text-align:center; font-size:1em; max-width:800px; margin:0 auto 40p
 .product-info h5 { font-size:1.2em; color:#111; margin:15px 0 10px; }
 .product-info p { font-size:0.95em; color:#666; margin-bottom:10px; }
 .product-price { font-size:1.1em; color:#28a745; font-weight:bold; }
-.recommendations-section, .chat-section { text-align:center; margin-bottom:50px; }
-.recommendations-section input, .recommendations-section button, .chat-section input, .chat-section button { padding:10px 15px; font-size:1em; margin:5px; border-radius:5px; border:1px solid #ccc; }
-.recommendations-section button, .chat-section button { background:#28a745; color:white; border:none; cursor:pointer; }
-.recommendations-section button:hover, .chat-section button:hover { background:#218838; }
-#recommendationsContainer, #chatContainer { text-align:left; max-width:700px; margin:10px auto; }
-#recommendationsContainer p, #chatContainer p { background:#fff; padding:10px; border-radius:5px; margin:5px 0; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.recommendations-section { margin-bottom:50px; text-align:center; }
+.recommendations-section input, .recommendations-section button { padding:10px 15px; font-size:1em; margin:5px; border-radius:5px; border:1px solid #ccc; }
+.recommendations-section button { background:#28a745; color:white; border:none; cursor:pointer; }
+.recommendations-section button:hover { background:#218838; }
+#recommendationsContainer p { text-align:left; background:#fff; margin:10px auto; padding:10px; border-radius:5px; max-width:600px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
 footer { background:#222; color:white; text-align:center; padding:30px 20px; margin-top:40px; }
 footer a { color:white; text-decoration:underline; }
 @media (max-width:768px){ nav ul { flex-direction:column; } nav ul li a { padding:12px 15px; font-size:0.95em; } header .slogan { font-size:1.2em; } .product-image { height:180px; } }
@@ -75,13 +75,6 @@ footer a { color:white; text-decoration:underline; }
     <input type="text" id="queryInput" placeholder="Ex: Am nevoie de iluminat și securitate pentru 3 camere">
     <button id="askBtn">Primește recomandări</button>
     <div id="recommendationsContainer"></div>
-</section>
-
-<section class="chat-section">
-    <h3>Chat cu AI Casa Inteligentă</h3>
-    <input type="text" id="chatInput" placeholder="Scrie întrebarea ta...">
-    <button id="chatBtn">Trimite</button>
-    <div id="chatContainer"></div>
 </section>
 
 <section>
@@ -209,13 +202,15 @@ footer a { color:white; text-decoration:underline; }
 </footer>
 
 <script>
-const API_BASE = "https://a-ten-kappa-21.vercel.app/";
+const API_BASE = "https://a-ten-kappa-21.vercel.app";
 
-// Recomandări AI
 async function getRecommendations() {
     const query = document.getElementById("queryInput").value.trim();
     const container = document.getElementById("recommendationsContainer");
-    if(!query){ container.innerHTML = "<p>Introduceți câteva detalii pentru recomandări.</p>"; return; }
+    if(!query){
+        container.innerHTML = "<p>Introduceți câteva detalii pentru recomandări.</p>";
+        return;
+    }
     container.innerHTML = "<p>Se generează recomandările...</p>";
     try {
         const response = await fetch(`${API_BASE}/recommend`, {
@@ -240,35 +235,8 @@ async function getRecommendations() {
         container.innerHTML = "<p>Eroare la server. Încearcă mai târziu.</p>";
     }
 }
+
 document.getElementById("askBtn").addEventListener("click", getRecommendations);
-
-// Chat AI
-document.getElementById("chatBtn").addEventListener("click", async () => {
-    const question = document.getElementById("chatInput").value.trim();
-    const container = document.getElementById("chatContainer");
-    if(!question){ container.innerHTML = "<p>Scrie o întrebare.</p>"; return; }
-
-    const pUser = document.createElement("p");
-    pUser.textContent = `Întrebare: ${question}`;
-    container.appendChild(pUser);
-
-    const pLoading = document.createElement("p");
-    pLoading.textContent = "AI răspunde...";
-    container.appendChild(pLoading);
-
-    try {
-        const res = await fetch(`${API_BASE}/chat`, {
-            method:"POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({ question })
-        });
-        const data = await res.json();
-        pLoading.textContent = `Răspuns AI: ${data.answer}`;
-    } catch(err){
-        pLoading.textContent = "Eroare la server. Încearcă mai târziu.";
-    }
-    document.getElementById("chatInput").value = "";
-});
 </script>
 
 </body>
