@@ -7,7 +7,6 @@
 <link rel="icon" href="nenciug.webp" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<!-- Schema JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -23,88 +22,34 @@
 </script>
 
 <style>
-body {
-    font-family: 'Arial', sans-serif;
-    margin:0; padding:0;
-    background:#f9f9f9;
-    color:#333;
-}
-header {
-    text-align:center;
-    position:relative;
-}
-header .logo-container {
-    width:100%; height:300px; overflow:hidden;
-}
-header .logo-container img {
-    width:100%; height:100%; object-fit:cover;
-}
-header .slogan {
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-    font-size:1.4em; color:white; text-shadow:2px 2px 6px rgba(0,0,0,0.7);
-}
-nav {
-    background:#222; position:sticky; top:0; z-index:1000;
-}
-nav ul {
-    display:flex; justify-content:center; flex-wrap:wrap; list-style:none; margin:0; padding:0;
-}
-nav ul li a {
-    display:block; padding:15px 20px; color:white; text-decoration:none; font-weight:bold;
-}
+body { font-family: Arial,sans-serif; margin:0; padding:0; background:#f9f9f9; color:#333; }
+header { text-align:center; position:relative; }
+header .logo-container { width:100%; height:300px; overflow:hidden; }
+header .logo-container img { width:100%; height:100%; object-fit:cover; }
+header .slogan { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:1.4em; color:white; text-shadow:2px 2px 6px rgba(0,0,0,0.7); }
+nav { background:#222; position:sticky; top:0; z-index:1000; }
+nav ul { display:flex; justify-content:center; flex-wrap:wrap; list-style:none; margin:0; padding:0; }
+nav ul li a { display:block; padding:15px 20px; color:white; text-decoration:none; font-weight:bold; }
 nav ul li a:hover { background:#444; }
-
 section { padding:40px 20px; max-width:1200px; margin:auto; }
 section h3 { text-align:center; margin-bottom:20px; font-size:1.8em; color:#222; }
 section p { text-align:center; font-size:1em; max-width:800px; margin:0 auto 40px; }
-
-.product-container {
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-    gap:25px;
-}
-.product-item {
-    background:white; padding:20px; border-radius:10px;
-    box-shadow:0 6px 15px rgba(0,0,0,0.1);
-    text-align:center; transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product-item:hover {
-    transform:translateY(-10px);
-    box-shadow:0 10px 20px rgba(0,0,0,0.2);
-}
-.product-image {
-    width:100%; height:200px; object-fit:contain; border-radius:5px;
-}
+.product-container { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:25px; }
+.product-item { background:white; padding:20px; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.1); text-align:center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.product-item:hover { transform:translateY(-10px); box-shadow:0 10px 20px rgba(0,0,0,0.2); }
+.product-image { width:100%; height:200px; object-fit:contain; border-radius:5px; }
 .product-info h5 { font-size:1.2em; color:#111; margin:15px 0 10px; }
 .product-info p { font-size:0.95em; color:#666; margin-bottom:10px; }
 .product-price { font-size:1.1em; color:#28a745; font-weight:bold; }
-
-/* AI Recommendation Section */
-.recommendations-section {
-    margin-bottom:50px;
-    text-align:center;
-}
-.recommendations-section input, .recommendations-section button {
-    padding:10px 15px; font-size:1em; margin:5px; border-radius:5px; border:1px solid #ccc;
-}
-.recommendations-section button {
-    background:#28a745; color:white; border:none; cursor:pointer;
-}
-.recommendations-section button:hover { background:#218838; }
-#recommendationsContainer p {
-    text-align:left; background:#fff; margin:10px auto; padding:10px; border-radius:5px;
-    max-width:600px; box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-
+.recommendations-section, .chat-section { text-align:center; margin-bottom:50px; }
+.recommendations-section input, .recommendations-section button, .chat-section input, .chat-section button { padding:10px 15px; font-size:1em; margin:5px; border-radius:5px; border:1px solid #ccc; }
+.recommendations-section button, .chat-section button { background:#28a745; color:white; border:none; cursor:pointer; }
+.recommendations-section button:hover, .chat-section button:hover { background:#218838; }
+#recommendationsContainer, #chatContainer { text-align:left; max-width:700px; margin:10px auto; }
+#recommendationsContainer p, #chatContainer p { background:#fff; padding:10px; border-radius:5px; margin:5px 0; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
 footer { background:#222; color:white; text-align:center; padding:30px 20px; margin-top:40px; }
 footer a { color:white; text-decoration:underline; }
-
-@media (max-width:768px){
-    nav ul { flex-direction:column; }
-    nav ul li a { padding:12px 15px; font-size:0.95em; }
-    header .slogan { font-size:1.2em; }
-    .product-image { height:180px; }
-}
+@media (max-width:768px){ nav ul { flex-direction:column; } nav ul li a { padding:12px 15px; font-size:0.95em; } header .slogan { font-size:1.2em; } .product-image { height:180px; } }
 </style>
 </head>
 <body>
@@ -132,44 +77,23 @@ footer a { color:white; text-decoration:underline; }
     <div id="recommendationsContainer"></div>
 </section>
 
+<section class="chat-section">
+    <h3>Chat cu AI Casa Inteligentă</h3>
+    <input type="text" id="chatInput" placeholder="Scrie întrebarea ta...">
+    <button id="chatBtn">Trimite</button>
+    <div id="chatContainer"></div>
+</section>
+
 <section>
     <h3>Produsele noastre</h3>
     <p>Oferim soluții complete pentru automatizarea casei tale: iluminat inteligent, termostate, sisteme de securitate și multe altele, toate configurate pentru confortul tău.</p>
     <div class="product-container">
-        <div class="product-item">
-            <img src="termostat.PNG" alt="Termostat inteligent" class="product-image">
-            <div class="product-info">
-                <h5>Termostat inteligent</h5>
-                <p>Menține temperatura și umiditatea ideale în locuința ta.</p>
-                <span class="product-price">550 RON</span>
-            </div>
-        </div>
-        <div class="product-item">
-            <img src="poarta.PNG" alt="Automatizare poarta" class="product-image">
-            <div class="product-info">
-                <h5>Automatizare poarta</h5>
-                <p>Deschidere poarta cu telecomanda sau smartphone.</p>
-                <span class="product-price">1800 RON</span>
-            </div>
-        </div>
-        <div class="product-item">
-            <img src="camere.PNG" alt="Sistem de securitate video" class="product-image">
-            <div class="product-info">
-                <h5>Sistem de securitate video</h5>
-                <p>Supraveghere cu camere și alertă în timp real.</p>
-                <span class="product-price">1,200 RON</span>
-            </div>
-        </div>
-        <div class="product-item">
-            <img src="priza.PNG" alt="Priză inteligentă Wi-Fi" class="product-image">
-            <div class="product-info">
-                <h5>Priză inteligentă Wi-Fi</h5>
-                <p>Controlează dispozitivele de la distanță și economisește energie.</p>
-                <span class="product-price">200 RON</span>
-            </div>
-        </div>
-
-            <div class="product-item">
+        <!-- Produse exemplu, toate ca în codul tău original -->
+        <div class="product-item"><img src="termostat.PNG" alt="Termostat inteligent" class="product-image"><div class="product-info"><h5>Termostat inteligent</h5><p>Menține temperatura și umiditatea ideale în locuința ta.</p><span class="product-price">550 RON</span></div></div>
+        <div class="product-item"><img src="poarta.PNG" alt="Automatizare poarta" class="product-image"><div class="product-info"><h5>Automatizare poarta</h5><p>Deschidere poarta cu telecomanda sau smartphone.</p><span class="product-price">1800 RON</span></div></div>
+        <div class="product-item"><img src="camere.PNG" alt="Sistem de securitate video" class="product-image"><div class="product-info"><h5>Sistem de securitate video</h5><p>Supraveghere cu camere și alertă în timp real.</p><span class="product-price">1,200 RON</span></div></div>
+        <div class="product-item"><img src="priza.PNG" alt="Priză inteligentă Wi-Fi" class="product-image"><div class="product-info"><h5>Priză inteligentă Wi-Fi</h5><p>Controlează dispozitivele de la distanță și economisește energie.</p><span class="product-price">200 RON</span></div></div>
+  <div class="product-item">
                 <img src="smarthub.PNG" alt="Smart Hub" class="product-image">
                 <div class="product-info">
                     <h5>Smart Hub pentru automatizarea electrocasnicelor (montaj inclus)</h5>
@@ -276,51 +200,32 @@ footer a { color:white; text-decoration:underline; }
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        </div>
-
-        <h4>Costuri suplimentare: Manoperă fără dispozitive</h4>
-        <ul>
-            <li><b>Manoperă pentru iluminat inteligent:</b> Instalare bec, bandă LED sau întrerupător - 50 RON/buc</li>
-            <li><b>Manoperă pentru termostate inteligente:</b> Instalare termostat și configurare - 300 RON/termostat</li>
-            <li><b>Manoperă pentru sisteme de securitate:</b> Cameră de supraveghere - 200 RON/buc; Senzori de securitate (fum, gaz, prezență) - 50 RON/buc</li>
-            <li><b>Manoperă pentru accesorii inteligente:</b> Senzori temperatură, inundație, uși - 50 RON/buc; Priză inteligentă - 70 RON/buc</li>
-        </ul>
-
-
-        <p><b>Produsele afișate reprezintă doar o selecție din gama noastră de soluții inteligente pentru casă. Pentru a configura un sistem care să răspundă perfect nevoilor și preferințelor dumneavoastră, vă invităm să ne contactați! Echipa noastră vă stă la dispoziție pentru consultanță și soluții personalizate!</b></p>
-    </section>
-       
-
-   <footer>
+<footer>
     <p>&copy; 2024 Casa Ta Inteligentă. Toate drepturile rezervate.</p>
     <p><a href="politica_privacy.html">Politica de confidențialitate</a></p>
 </footer>
 
 <script>
+const API_BASE = "https://a-ten-kappa-21.vercel.app/";
+
+// Recomandări AI
 async function getRecommendations() {
     const query = document.getElementById("queryInput").value.trim();
     const container = document.getElementById("recommendationsContainer");
-
-    if(!query){
-        container.innerHTML = "<p>Introduceți câteva detalii pentru recomandări.</p>";
-        return;
-    }
-
+    if(!query){ container.innerHTML = "<p>Introduceți câteva detalii pentru recomandări.</p>"; return; }
     container.innerHTML = "<p>Se generează recomandările...</p>";
-
     try {
-        const response = await fetch("https://casa-smart-beckend-new.vercel.app/recommend", {
+        const response = await fetch(`${API_BASE}/recommend`, {
             method:"POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({ query })
         });
-
         if(!response.ok) throw new Error(`Eroare server: ${response.status}`);
-
         const data = await response.json();
         container.innerHTML = "";
-
         if(data.recommendations && data.recommendations.length){
             data.recommendations.forEach(item => {
                 const p = document.createElement("p");
@@ -335,12 +240,36 @@ async function getRecommendations() {
         container.innerHTML = "<p>Eroare la server. Încearcă mai târziu.</p>";
     }
 }
-
 document.getElementById("askBtn").addEventListener("click", getRecommendations);
+
+// Chat AI
+document.getElementById("chatBtn").addEventListener("click", async () => {
+    const question = document.getElementById("chatInput").value.trim();
+    const container = document.getElementById("chatContainer");
+    if(!question){ container.innerHTML = "<p>Scrie o întrebare.</p>"; return; }
+
+    const pUser = document.createElement("p");
+    pUser.textContent = `Întrebare: ${question}`;
+    container.appendChild(pUser);
+
+    const pLoading = document.createElement("p");
+    pLoading.textContent = "AI răspunde...";
+    container.appendChild(pLoading);
+
+    try {
+        const res = await fetch(`${API_BASE}/chat`, {
+            method:"POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({ question })
+        });
+        const data = await res.json();
+        pLoading.textContent = `Răspuns AI: ${data.answer}`;
+    } catch(err){
+        pLoading.textContent = "Eroare la server. Încearcă mai târziu.";
+    }
+    document.getElementById("chatInput").value = "";
+});
 </script>
 
 </body>
 </html>
-
-
-
