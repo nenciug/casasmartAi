@@ -207,21 +207,27 @@ const API_BASE = "https://a-ten-kappa-21.vercel.app";
 async function getRecommendations() {
     const query = document.getElementById("queryInput").value.trim();
     const container = document.getElementById("recommendationsContainer");
-    if(!query){
+
+    if (!query) {
         container.innerHTML = "<p>Introduceți câteva detalii pentru recomandări.</p>";
         return;
     }
+
     container.innerHTML = "<p>Se generează recomandările...</p>";
+
     try {
-        const response = await fetch(`${API_BASE}/recommend`, {
-            method:"POST",
-            headers: {"Content-Type":"application/json"},
+        const response = await fetch("https://a-ten-kappa-21.vercel.app/recommend", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query })
         });
-        if(!response.ok) throw new Error(`Eroare server: ${response.status}`);
+
+        if (!response.ok) throw new Error(`Eroare server: ${response.status}`);
+
         const data = await response.json();
         container.innerHTML = "";
-        if(data.recommendations && data.recommendations.length){
+
+        if (data.recommendations && data.recommendations.length) {
             data.recommendations.forEach(item => {
                 const p = document.createElement("p");
                 p.textContent = item;
@@ -230,7 +236,7 @@ async function getRecommendations() {
         } else {
             container.innerHTML = "<p>Nu s-au găsit recomandări pentru criteriile tale.</p>";
         }
-    } catch(err){
+    } catch (err) {
         console.error(err);
         container.innerHTML = "<p>Eroare la server. Încearcă mai târziu.</p>";
     }
@@ -241,3 +247,4 @@ document.getElementById("askBtn").addEventListener("click", getRecommendations);
 
 </body>
 </html>
+
