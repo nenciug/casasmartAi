@@ -227,24 +227,22 @@ async function getRecommendations() {
         const data = await response.json();
         container.innerHTML = "";
 
-        if (data.recommendations && data.recommendations.length) {
-            data.recommendations.forEach(item => {
-                const p = document.createElement("p");
-                p.textContent = item;
-                container.appendChild(p);
-            });
-        } else {
-            container.innerHTML = "<p>Nu s-au găsit recomandări pentru criteriile tale.</p>";
-        }
+        data.recommendations.forEach(item => {
+            const p = document.createElement("p");
+            p.textContent = item;
+            container.appendChild(p);
+        });
     } catch (err) {
         console.error(err);
         container.innerHTML = "<p>Eroare la server. Încearcă mai târziu.</p>";
     }
 }
 
+
 document.getElementById("askBtn").addEventListener("click", getRecommendations);
 </script>
 
 </body>
 </html>
+
 
